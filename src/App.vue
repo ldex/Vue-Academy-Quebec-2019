@@ -1,10 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      clipped
-    >
+    <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense>
         <v-list-item :to="{path: '/'}">
           <v-list-item-action>
@@ -41,12 +37,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar
-      app
-      color="indigo"
-      dark
-      clipped-left
-    >
+    <v-app-bar app color="indigo" dark clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Vue Store</v-toolbar-title>
       <div class="flex-grow-1"></div>
@@ -55,19 +46,17 @@
     </v-app-bar>
 
     <v-content>
-      <v-container
-        fluid
-      >
-      <transition name="fade" mode="out-in">  
-        <router-view></router-view>
-      </transition>
+      <v-container fluid>
+        <transition name="fade" mode="out-in">
+          <router-view></router-view>
+        </transition>
       </v-container>
     </v-content>
-    <v-footer
-      color="indigo"
-      app
-    >
-      <span class="white--text">&copy; 2019 — <strong>Vue Academy</strong></span>
+    <v-footer color="indigo" app>
+      <span class="white--text">
+        &copy; 2020 —
+        <strong>Vue Academy</strong>
+      </span>
     </v-footer>
   </v-app>
 </template>
@@ -75,29 +64,29 @@
 <script>
 import { mapGetters } from "vuex";
 
-  export default {
-    computed: {
-      ...mapGetters(["loggedIn"])
-    },
-    props: {
-      source: String,
-    },
-    data: () => ({
-      drawer: null,
-    }),
-    methods: {
-      logout() {
-        localStorage.removeItem("auth_token");
-        location.reload();
-      }
-    },
-    created () {
-      const auth_token = localStorage.getItem('auth_token');
-      if(auth_token) {
-        this.$store.dispatch('setAuthToken', auth_token);
-      }
-    },
+export default {
+  computed: {
+    ...mapGetters(["loggedIn"])
+  },
+  props: {
+    source: String
+  },
+  data: () => ({
+    drawer: null
+  }),
+  methods: {
+    logout() {
+      localStorage.removeItem("auth_token");
+      location.reload();
+    }
+  },
+  created() {
+    const auth_token = localStorage.getItem("auth_token");
+    if (auth_token) {
+      this.$store.dispatch("setAuthToken", auth_token);
+    }
   }
+};
 </script>
 
 <style>
@@ -109,29 +98,37 @@ import { mapGetters } from "vuex";
 }
 
 /* transitions */
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
 
 @keyframes acrossIn {
-  0% { transform: translate3d(-100%, 0, 0); }
-  100% { transform: translate3d(0, 0, 0); }
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
 }
- 
+
 @keyframes acrossOut {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(100%, 0, 0); }
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(100%, 0, 0);
+  }
 }
 
 .page-enter-active {
-  animation: acrossIn .45s ease-out both;
-} 
- 
+  animation: acrossIn 0.45s ease-out both;
+}
+
 .page-leave-active {
-  animation: acrossOut .65s ease-in both;
-} 
- 
+  animation: acrossOut 0.65s ease-in both;
+}
 </style>
